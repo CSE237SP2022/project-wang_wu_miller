@@ -1,3 +1,4 @@
+package ourPackage;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.File;
@@ -11,15 +12,12 @@ public class BookKeeping {
             System.out.println("Please prepare record.txt and rerun the program.");
             System.exit(0);
         }
-//        int num=0, sum=0;
-//        Scanner input = new Scanner(f);
-//        while (input.hasNextInt())
-//        {
-//            num = input.nextInt();
-//            sum+=num;
-//        }
-//        System.out.println("The sum is "+sum);
-//        input.close();
+        Scanner file = new Scanner(f);
+        Records records = RecordsOperations.readRecords(file);
+        RecordsOperations.writeRecords(records,f);
+        file.close();
+        //start menu
+        menu();
     	Scanner input=new Scanner(System.in);
     	double d = -1;
     	while(d != 0) {
@@ -27,6 +25,37 @@ public class BookKeeping {
     		d = input.nextDouble();
     		System.out.println("You print "+d);
     	}
+    }
+    
+    private static void menu() {
+    	int option = selectOption();
+    	switch(option) {
+    		case 1:optionOne();
+    		case 2:optionTwo();
+    		case 3:optionThree();
+    	}
+    		
+    }
+    
+    private static int selectOption()
+    {
+    	return -1;
+    }
+    
+    
+    private static void optionOne()
+    {
+    	
+    }
+    
+    private static void optionTwo()
+    {
+    	
+    }
+    
+    private static void optionThree()
+    {
+    	
     }
 
 }
