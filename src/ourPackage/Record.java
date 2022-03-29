@@ -9,7 +9,7 @@ public class Record {
 	Category c;
 	String ID;
 	
-	Record(String note, Date d, double amount, Category c){
+	public Record(String note, Date d, double amount, Category c){
 		this.note =note;
 		this.d = d;
 		this.amount = amount;
