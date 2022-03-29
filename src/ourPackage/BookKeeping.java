@@ -1,30 +1,15 @@
 package ourPackage;
+import java.util.Date;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.File;
 public class BookKeeping {
     public static void main(String[] args) throws FileNotFoundException
     {
-    	//
-        File f=new File("record.txt");
-        if (!f.exists())
-        {
-            System.out.println("record.txt does not exists.");
-            System.out.println("Please prepare record.txt and rerun the program.");
-            System.exit(0);
-        }
-        
-        //read file
-        Scanner file = new Scanner(f);
-        Records records = RecordsOperations.readRecords(file);
-        
-        //start menu, edit records
+
         menu();
         
         //input
-        RecordsOperations.writeRecords(records,f);
-        
-        file.close();
         
 
     }
