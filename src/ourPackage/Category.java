@@ -1,5 +1,8 @@
 package ourPackage;
 
 public enum Category {
-	food,
+	GROCERIES,
+	TRANSPORTATION,
+	DINING,
+	NONE
 }
