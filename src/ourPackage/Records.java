@@ -14,6 +14,13 @@ public class Records {
 	public boolean contains(Record r) {
 		return records.contains(r);
 	}
+	
+	public void printRecords() {
+		for(Record r: records) {
+			System.out.println("record");
+		}
+		
+	}
 }
 
 

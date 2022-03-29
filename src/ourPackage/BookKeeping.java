@@ -45,7 +45,7 @@ public class BookKeeping {
         	System.out.println("Invalid format! Please re-enter the option that you want to choose. ");
         	selectOption();
         }
-        sc.close();
+        //sc.close();
     	return optiontype;
     }
     
@@ -64,7 +64,16 @@ public class BookKeeping {
     {
     	Scanner sc = new Scanner(System.in);
     	System.out.println("Please provide a note for the new record:");
-    	String record_note = sc.nextLine();
+    	/*if(sc.isEmpty()) {
+    		
+    	}
+    	*/
+    	String record_note = new String();
+    	//while(sc.hasNextLine()) {
+    		record_note = sc.nextLine();
+    	//}
+    	System.out.println(record_note);
+    	
     	//System.out.println("Please provide the date of the purchase:");//specify required format for date
     	
     	/*System.out.println("Year:");
@@ -81,6 +90,7 @@ public class BookKeeping {
     	System.out.println("2. Transportation");
     	System.out.println("3. Dining");
     	int category = sc.nextInt();
+    	
     	Category c = Category.NONE;
     	switch(category) {
     	case 1:
@@ -100,6 +110,10 @@ public class BookKeeping {
     	Record record = new Record(record_note, date, amount, c);
     	
     	records.addRecord(record);
+    	records.printRecords();
+    	sc.close();
+    	
+    	
 
     }
     
