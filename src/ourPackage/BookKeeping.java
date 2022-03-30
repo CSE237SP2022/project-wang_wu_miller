@@ -36,7 +36,7 @@ public class BookKeeping {
 				printRecords();
 				break;
 			case 2:
-				showSummary();
+				showSummary(records);
 				break;
 			case 3:
 				addRecord(records);
@@ -60,8 +60,48 @@ public class BookKeeping {
 		return;
 	}
 
-	private static void showSummary() {
+	private static void showSummary(Records records) {
 		System.out.println("show summary ...");
+		System.out.println("show summary ...");
+		System.out.println("Total purchases: " + records.size());
+		double totalGroceries = 0; 
+		double totalTransportation = 0; 
+		double totalDining = 0;
+		double totalAmount = 0; 
+
+		
+		for (int i = 0; i < records.size(); i++) {
+			//System.out.println(records.get(i).amount);
+			 Category category = records.get(i).c;
+			 switch (category) {
+				case GROCERIES:
+					totalGroceries += records.get(i).amount; 
+					totalAmount += records.get(i).amount;
+					break;
+				case TRANSPORTATION:
+					totalTransportation += records.get(i).amount; 
+					totalAmount += records.get(i).amount;
+					break;
+				case DINING:
+					totalDining += records.get(i).amount;
+					totalAmount += records.get(i).amount;
+					break;
+				case NONE:
+					break;
+				}
+		}
+		
+		System.out.println("Total amount: " + (double) Math.round(totalAmount*100)/100);
+		System.out.println("Total groceries: " + (double) Math.round(totalGroceries*100)/100);
+		System.out.println("Total transportation: " + (double) Math.round(totalTransportation*100)/100);
+		System.out.println("Total dining: " + (double) Math.round(totalDining*100)/100);
+		double percentGroceries = (totalGroceries / totalAmount)*100; 
+		double percentTransportation = (totalTransportation / totalAmount)*100; 
+		double percentDining = (totalDining / totalAmount)*100; 
+		System.out.println("Percent spent on groceries: " + (double) Math.round(percentGroceries*100)/100);
+		System.out.println("Percent spent on transportation: " + (double) Math.round(percentTransportation*100)/100);
+		System.out.println("Percent spent on dining: " + (double) Math.round(percentDining*100)/100);
+		
 		return;
 	}
 
