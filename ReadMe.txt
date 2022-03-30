@@ -1,7 +1,7 @@
 What user stories were completed this iteration?
 User can see a option menu when they get into the app. 
 And there're 4 options in our menu, right now we are working show the summary, and finished the adding record.
-
+Added calculations for total amount spent and percentage of amount spent by category.
 
 What user stories do you intend to complete next iteration?
 we will allow users to change existing record. 
