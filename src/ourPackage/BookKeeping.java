@@ -11,7 +11,7 @@ public class BookKeeping {
 		System.out.println("begin...");
 		menu(records);
 
-		// input
+		// input?
 
 	}
 
