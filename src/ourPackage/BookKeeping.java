@@ -11,7 +11,7 @@ public class BookKeeping {
 		System.out.println("begin...");
 		menu(records);
 
-		// input
+		//test .gitignore
 
 	}
 
@@ -57,6 +57,7 @@ public class BookKeeping {
 
 	private static void printRecords() {
 		System.out.println("print records ...");
+		
 		return;
 	}
 
