@@ -33,7 +33,7 @@ public class BookKeeping {
 			}
 			switch (option) {
 			case 1:
-				printRecords();
+				printRecords(records);
 				break;
 			case 2:
 				showSummary(records);
@@ -55,8 +55,17 @@ public class BookKeeping {
 
 	}
 
-	private static void printRecords() {
+	private static void printRecords(Records records) {
+		
 		System.out.println("print records ...");
+		for (int i = 0; i < records.size(); i++) {
+			System.out.println("Entry #" + i + ": ");
+			System.out.println(records.get(i).note);
+			System.out.println(records.get(i).d);
+			System.out.println(records.get(i).amount);
+			System.out.println(records.get(i).c);
+		}
+		System.out.println();
 		return;
 	}
 
