@@ -10,7 +10,7 @@ public class Record {
 	String ID;
 	
 	Record(String note, Date d, double amount, Category c){
-		this.note =note;
+		this.note = note;
 		this.d = d;
 		this.amount = amount;
 		this.c = c; 
@@ -18,7 +18,7 @@ public class Record {
 	}
 	
 	public void editRecord(String note, Date d, double amount, Category c) {
-		this.note =note;
+		this.note = note;
 		this.d = d;
 		this.amount = amount;
 		this.c = c; 
