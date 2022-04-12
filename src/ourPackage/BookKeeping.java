@@ -42,7 +42,7 @@ public class BookKeeping {
 				addRecord(records);
 				break;
 			case 4:
-				editRecord();
+				editRecord(records);
 				break;
 			default:
 				System.out.println("Invalid format! Please re-enter the option that you want to choose. ");
@@ -64,6 +64,7 @@ public class BookKeeping {
 			System.out.println(records.get(i).d);
 			System.out.println(records.get(i).amount);
 			System.out.println(records.get(i).c);
+			System.out.println(records.get(i).ID);
 		}
 		System.out.println();
 		return;
@@ -118,6 +119,8 @@ public class BookKeeping {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Please provide a note for the new record:");
 		String record_note = sc.nextLine();
+		 
+
 		// System.out.println("Please provide the date of the purchase:");//specify
 		// required format for date
 
@@ -153,13 +156,111 @@ public class BookKeeping {
 		Record record = new Record(record_note, date, amount, c);
 
 		records.addRecord(record);
-
+		
 	}
 
-	private static void editRecord() {
+	private static void editRecord(Records records) {
 		// delete
 		// update
-		System.out.println("edit record ...");
+		Scanner sc = new Scanner(System.in);
+		
+		//check if record name given matches with a corresponding record that exists, if so will list out the records that match up 
+		boolean foundRecord = false; 
+		while(!foundRecord) {
+			System.out.println("Please provide a name for the record to edit:");
+			String record_name = sc.nextLine();
+			
+			for(int i=0; i<records.size(); i++) {
+				if (records.get(i).note.equals(record_name)) {
+					System.out.println("Entry #" + i + ": ");
+					System.out.println(records.get(i).note);
+					System.out.println(records.get(i).d);
+					System.out.println(records.get(i).amount);
+					System.out.println(records.get(i).c);
+					System.out.println(records.get(i).ID);
+					foundRecord = true;
+				}
+			}
+		}
+		
+		
+		System.out.println("Please enter the entry ID of the entry you want to edit:");
+		String recordID = sc.nextLine();
+		
+		for (int i = 0; i < records.size(); i++) {
+			if (records.get(i).ID.equals(recordID)) {
+				
+				String record_note = records.get(i).note;
+				double amount = records.get(i).amount;
+				Category c = records.get(i).c;
+		
+				while(true) {
+					System.out.println("What would you like to edit?");
+					System.out.println("1: name");
+					System.out.println("2: amount");
+					System.out.println("3: category");
+					System.out.println("4: quit");
+					int editOption = sc.nextInt(); 
+					
+					if(editOption == 4) {
+						System.out.println("Exiting editing...");
+						//sc.close();
+						break;
+					}
+					
+					switch (editOption) {
+					case 1: 
+						System.out.println("Please provide a note for the edited record:");
+						sc.nextLine();
+						record_note = sc.nextLine();
+						break;
+						
+					case 2:
+						System.out.println("Please provide the new amount of the purchase:");
+						amount = sc.nextDouble();
+						break;
+					
+					case 3: 
+						System.out.println("Choose a category for the new record: (Please enter a number)");
+						System.out.println("1. Groceries");
+						System.out.println("2. Transportation");
+						System.out.println("3. Dining");
+						int category = sc.nextInt();
+						switch (category) {
+						case 1:
+							c = Category.GROCERIES;
+							break;
+						case 2:
+							c = Category.TRANSPORTATION;
+							break;
+						case 3:
+							c = Category.DINING;
+							break;
+						default:
+							System.out.println("Invalid format! Please re-enter the option that you want to choose. ");
+							break;
+						}
+					}
+				}
+				System.out.println(record_note);
+				System.out.println(amount);
+				System.out.println(c);
+
+				//add in new record
+				Record record = new Record(record_note, records.get(i).d, amount, c);
+				records.addRecord(record);
+				
+				//remove old record
+				Record recordToRemove = records.get(i);
+				records.removeRecord(recordToRemove);
+				printRecords(records);
+				}
+			}
+	
+		
+		
+		System.out.println("finished editing record...");
+		
 		return;
 	}
 	
