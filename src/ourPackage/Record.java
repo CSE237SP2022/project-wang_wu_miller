@@ -3,25 +3,25 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Record {
-	String note;
-	Date d;
-	double amount;
-	Category c;
-	String ID;
+	private String note;
+	private Date date;
+	private double amount;
+	private Category category;
+	private String ID;
 	
-	Record(String note, Date d, double amount, Category c){
+	Record(String note, Date date, double amount, Category category){
 		this.note = note;
-		this.d = d;
+		this.date = date;
 		this.amount = amount;
-		this.c = c; 
+		this.category = category; 
 		this.ID = UUID.randomUUID().toString();
 	}
 	
-	public void editRecord(String note, Date d, double amount, Category c) {
+	public void editRecord(String note, Date date, double amount, Category category) {
 		this.note = note;
-		this.d = d;
+		this.date = date;
 		this.amount = amount;
-		this.c = c; 
+		this.category = category; 
 	}
 	
 	 public String getNote() {
@@ -29,7 +29,7 @@ public class Record {
 	 }
 	 
 	 public Date getDate() {
-		 return d;
+		 return date;
 	 }
 	 
 	 public double getAmount() {
@@ -37,7 +37,7 @@ public class Record {
 	 }
 	 
 	 public Category getCategory() {
-		 return c;
+		 return category;
 	 }
 	 
 	 public String getID() {
