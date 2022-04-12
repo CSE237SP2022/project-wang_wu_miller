@@ -24,6 +24,7 @@ public class Record {
 		this.c = c; 
 	}
 	
+	
 	 public String getNote() {
 		 return note;
 	 }

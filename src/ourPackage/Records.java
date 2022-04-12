@@ -10,6 +10,10 @@ public class Records {
 	public void addRecord(Record r) {
 		records.add(r);
 	}
+	
+	public void removeRecord(Record r) {
+		records.remove(r);
+	}
 
 	public int size() {
 		// TODO Auto-generated method stub
