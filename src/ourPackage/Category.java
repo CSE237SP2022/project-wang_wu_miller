@@ -4,6 +4,6 @@ public enum Category {
 	GROCERIES,
 	TRANSPORTATION,
 	DINING,
-	NONE
+	OTHER
 }
 
