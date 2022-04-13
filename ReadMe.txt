@@ -1,18 +1,17 @@
 What user stories were completed this iteration?
-User can see a option menu when they get into the app. 
-And there're 4 options in our menu, right now we are working show the summary, and finished the adding record.
-
+We fixed all the requirements and test cases, and finished all 4 functions for our app. Our app could record the money you spend in different situation and calculate the total money you spent (with a note, date and category information), and can also calculate the percentage for different category. 
 
 What user stories do you intend to complete next iteration?
-we will allow users to change existing record. 
+We will try to implement a login function for the users.
 
 
 
 Is there anything that you implemented but doesn't currently work?
-Our editing function are not working right now, will finsh this function by next iteration
+Every function that shows on the app should work.
 
 
 
 
 What commands are needed to compile and run your code from the command line (or better yet, provide a script that people can use to run your program!)
-just compile and run the BookKeeping.java.
+comand line: bash compile.sh
+
