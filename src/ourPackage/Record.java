@@ -24,6 +24,7 @@ public class Record {
 		this.category = category; 
 	}
 	
+	
 	 public String getNote() {
 		 return note;
 	 }

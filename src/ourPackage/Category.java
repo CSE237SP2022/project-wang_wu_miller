@@ -6,3 +6,4 @@ public enum Category {
 	DINING,
 	OTHER
 }
+
