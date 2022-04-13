@@ -29,16 +29,16 @@ public class BookKeeping {
 	
 	public static void main(String[] args) throws FileNotFoundException {
 		BookKeeping bookKeeping = new BookKeeping();
-		//Records records = new Records();
+		
 		System.out.println("begin...");
-		bookKeeping.displayMenu();
+		bookKeeping.displayMainMenu();
 
-		// input?
+	
 
 	}
 	public void chooseMenuOption(int option)
 	{
-		//Scanner scanner = new Scanner(System.in);
+	
 		switch (option) {
 		case 1:
 			records.printRecords();
@@ -65,10 +65,10 @@ public class BookKeeping {
 	
 	
 	
-	public void displayMenu() 
+	public void displayMainMenu() 
 	{
 		int option;
-		//Scanner scanner = new Scanner(System.in);
+	
 		while(true)
 		{
 			System.out.println("Please select an option: (just enter the number you chose)");
@@ -80,13 +80,11 @@ public class BookKeeping {
 			option = Integer.parseInt(scanner.nextLine());
 			chooseMenuOption(option);
 		}
-		//scanner.close();
-		//System.exit(0);
 	}
 
 	
 	
-	public void updateTotals(Record record)
+	public void addToTotals(Record record)
 	{
 		double amount = record.getAmount();
 		totalAmount += amount;
@@ -102,6 +100,28 @@ public class BookKeeping {
 				totalDining += amount;
 				break;
 			case OTHER:
+				totalOther += amount;
+				break;
+		}
+	}
+	
+	public void subtractFromTotals(Record record)
+	{
+		double amount = record.getAmount();
+		totalAmount -= amount;
+		
+		switch (record.getCategory()) {
+			case GROCERIES:
+				totalGroceries -= amount; 
+				break;
+			case TRANSPORTATION:
+				totalTransportation -= amount; 
+				break;
+			case DINING:
+				totalDining -= amount;
+				break;
+			case OTHER:
+				totalOther -= amount;
 				break;
 		}
 	}
@@ -113,12 +133,14 @@ public class BookKeeping {
 		double formattedTotalGroceries = (totalGroceries == 0) ? 0 : (double) Math.round((totalGroceries*100)/100);
 		double formattedTotalTransportation = (totalTransportation == 0) ? 0 : (double) Math.round((totalTransportation*100)/100);
 		double formattedTotalDining = (totalDining == 0) ? 0 : (double) Math.round((totalDining*100)/100);
+		double formattedTotalOther = (totalOther == 0) ? 0 : (double) Math.round((totalOther*100)/100);
 
 		
 		System.out.println("Total amount: " + formattedTotalAmount);
 		System.out.println("Total groceries: " + formattedTotalGroceries);
 		System.out.println("Total transportation: " + formattedTotalTransportation);
 		System.out.println("Total dining: " + formattedTotalDining);
+		System.out.println("Total other: " + formattedTotalOther);
 		System.out.println();
 	}
 	
@@ -129,10 +151,13 @@ public class BookKeeping {
 		double percentGroceries = (totalAmount == 0) ? 0 : (totalGroceries / totalAmount)*100; 
 		double percentTransportation = (totalAmount == 0) ? 0 : (totalTransportation / totalAmount)*100; 
 		double percentDining = (totalAmount == 0) ? 0 : (totalDining / totalAmount)*100; 
+		double percentOther = (totalOther == 0) ? 0 : (totalOther / totalAmount)*100; 
 		
 		System.out.println("Percent spent on groceries: " + (double) Math.round(percentGroceries*100)/100);
 		System.out.println("Percent spent on transportation: " + (double) Math.round(percentTransportation*100)/100);
 		System.out.println("Percent spent on dining: " + (double) Math.round(percentDining*100)/100);
+		System.out.println("Percent spent on other: " + (double) Math.round(percentOther*100)/100);
+
 		System.out.println();
 	}
 	
@@ -150,10 +175,6 @@ public class BookKeeping {
 	
 	public Category promptForCategory()
 	{
-		//Scanner scanner = new Scanner(System.in);
-
-			 
-
 		System.out.println("Choose a category for the new record: (Please enter a number)");
 		System.out.println("1. Groceries");
 		System.out.println("2. Transportation");
@@ -176,19 +197,13 @@ public class BookKeeping {
 	}
 	
 	
-	public void addRecord() {
-		
-		
-		
+	public void addRecord() 
+	{
 		System.out.println("Please provide a note for the new record:");
 		String record_note = scanner.nextLine(); 
-		
-		//scanner.nextLine();
-		
+
 		System.out.println("Please provide the amount of the purchase:");
 		double amount = Double.parseDouble(scanner.nextLine());
-		
-		//scanner.nextLine();
 
 		Category category = promptForCategory();
 
@@ -198,111 +213,107 @@ public class BookKeeping {
 
 		records.addRecord(record);
 
-		updateTotals(record);
+		addToTotals(record);
 	}
 
 	
-
-	private static void editRecord(Records records) {
-		// delete
-		// update
-		Scanner sc = new Scanner(System.in);
-		
-		//check if record name given matches with a corresponding record that exists, if so will list out the records that match up 
+	public void listMatchingRecords()
+	{
 		boolean foundRecord = false; 
 		while(!foundRecord) {
 			System.out.println("Please provide a name for the record to edit:");
-			String record_name = sc.nextLine();
+			String record_name = scanner.nextLine();
 			
 			for(int i=0; i<records.size(); i++) {
-				if (records.get(i).note.equals(record_name)) {
+				
+				Record record = records.get(i);
+				
+				if (record.getNote().equals(record_name)) {
 					System.out.println("Entry #" + i + ": ");
-					System.out.println(records.get(i).note);
-					System.out.println(records.get(i).d);
-					System.out.println(records.get(i).amount);
-					System.out.println(records.get(i).c);
-					System.out.println(records.get(i).ID);
+					record.printRecord();
 					foundRecord = true;
 				}
 			}
 		}
-		
-		
-		System.out.println("Please enter the entry ID of the entry you want to edit:");
-		String recordID = sc.nextLine();
-		
-		for (int i = 0; i < records.size(); i++) {
-			if (records.get(i).ID.equals(recordID)) {
+	}
+
+	public Record getEditedRecord(Record current_record)
+	{
+		String new_note = current_record.getNote();
+		double new_amount = current_record.getAmount();
+		Category new_category = current_record.getCategory();
+		while(true) {
+			displayEditingMenu();
+			int editOption = Integer.parseInt(scanner.nextLine()); 
+			
+			if(editOption == 4) {
+				System.out.println("Exiting editing...");
+				break;
+			}
+			
+			switch (editOption) {
+			case 1: 
+				System.out.println("Please provide a note for the edited record:");
+				new_note = scanner.nextLine();
+				break;
 				
-				String record_note = records.get(i).note;
-				double amount = records.get(i).amount;
-				Category c = records.get(i).c;
+			case 2:
+				System.out.println("Please provide the new amount of the purchase:");
+				new_amount = Double.parseDouble(scanner.nextLine());
+				break;
+			
+			case 3: 
+				new_category = promptForCategory();
+				break;
+			
+			}
+		}
+		Record new_record = new Record(new_note, current_record.getDate(), new_amount, new_category);
+		return new_record;
+	}
+	
+	public void displayEditingMenu()
+	{
+		System.out.println("What would you like to edit?");
+		System.out.println("1: name");
+		System.out.println("2: amount");
+		System.out.println("3: category");
+		System.out.println("4: quit");
+	}
+	
+	
+	public void editRecord() {
 		
-				while(true) {
-					System.out.println("What would you like to edit?");
-					System.out.println("1: name");
-					System.out.println("2: amount");
-					System.out.println("3: category");
-					System.out.println("4: quit");
-					int editOption = sc.nextInt(); 
-					
-					if(editOption == 4) {
-						System.out.println("Exiting editing...");
-						//sc.close();
-						break;
-					}
-					
-					switch (editOption) {
-					case 1: 
-						System.out.println("Please provide a note for the edited record:");
-						sc.nextLine();
-						record_note = sc.nextLine();
-						break;
-						
-					case 2:
-						System.out.println("Please provide the new amount of the purchase:");
-						amount = sc.nextDouble();
-						break;
-					
-					case 3: 
-						System.out.println("Choose a category for the new record: (Please enter a number)");
-						System.out.println("1. Groceries");
-						System.out.println("2. Transportation");
-						System.out.println("3. Dining");
-						int category = sc.nextInt();
-						switch (category) {
-						case 1:
-							c = Category.GROCERIES;
-							break;
-						case 2:
-							c = Category.TRANSPORTATION;
-							break;
-						case 3:
-							c = Category.DINING;
-							break;
-						default:
-							System.out.println("Invalid format! Please re-enter the option that you want to choose. ");
-							break;
-						}
-					}
-				}
-				System.out.println(record_note);
-				System.out.println(amount);
-				System.out.println(c);
+		//check if record name given matches with a corresponding record that exists, if so will list out the records that match up 
+		listMatchingRecords();
+		
+		
+		System.out.println("Please enter the ID of the entry you want to edit:");
+		String recordID = scanner.nextLine();
+		
+		for (int i = 0; i < records.size(); i++) 
+		{
+			Record record = records.get(i);
+			
+			if (record.getID().equals(recordID)) 
+			{
+				Record edited_record = getEditedRecord(record);
+				
+				System.out.println("Edited Record:");
+				edited_record.printRecord();
 
 				//add in new record
-				Record record = new Record(record_note, records.get(i).d, amount, c);
-				records.addRecord(record);
+				records.addRecord(edited_record);
+				addToTotals(edited_record);
 				
 				//remove old record
-				Record recordToRemove = records.get(i);
-				records.removeRecord(recordToRemove);
-				printRecords(records);
+				records.removeRecord(record);
+				subtractFromTotals(record);
+				
+				records.printRecords();
 				}
 			}
 	
-		
-		
 		System.out.println("finished editing record...");
 		
 		return;

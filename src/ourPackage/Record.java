@@ -9,7 +9,7 @@ public class Record {
 	private Category category;
 	private String ID;
 	
-	Record(String note, Date date, double amount, Category category){
+	public Record(String note, Date date, double amount, Category category){
 		this.note = note;
 		this.date = date;
 		this.amount = amount;
@@ -43,5 +43,14 @@ public class Record {
 	 
 	 public String getID() {
 		 return ID;
+	 }
+	 
+	 public void printRecord()
+	 {
+		 System.out.println("Note: " + note);
+		 System.out.println("Date: " + date);
+		 System.out.println("Amount: " + amount);
+		 System.out.println("Category: " + category);
+		 System.out.println("ID: " + ID);
 	 }
 }
