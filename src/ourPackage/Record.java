@@ -1,23 +1,25 @@
 package ourPackage;
-import java.util.Date;
-import java.util.UUID;
 
 public class Record {
 	String note;
-	Date d;
+	MyDate d;
 	double amount;
 	Category c;
-	String ID;
+	int ID;
 	
-	Record(String note, Date d, double amount, Category c){
+	Record(String note, double amount, Category c, MyDate d, int id){
 		this.note =note;
 		this.d = d;
 		this.amount = amount;
 		this.c = c; 
-		this.ID = UUID.randomUUID().toString();
+		this.ID = id;
 	}
 	
-	public void editRecord(String note, Date d, double amount, Category c) {
+	public void print() {
+		System.out.printf("%d . %.2f %s at %s, %s \n",ID,amount,c.toString(),d.toString(),note);
+	}
+	
+	public void editRecord(String note, MyDate d, double amount, Category c) {
 		this.note =note;
 		this.d = d;
 		this.amount = amount;
@@ -28,7 +30,7 @@ public class Record {
 		 return note;
 	 }
 	 
-	 public Date getDate() {
+	 public MyDate getDate() {
 		 return d;
 	 }
 	 
@@ -40,7 +42,7 @@ public class Record {
 		 return c;
 	 }
 	 
-	 public String getID() {
+	 public int getID() {
 		 return ID;
 	 }
 }
