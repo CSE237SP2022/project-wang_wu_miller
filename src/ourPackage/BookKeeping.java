@@ -38,6 +38,7 @@ public class BookKeeping {
 	}
 	public void chooseMenuOption(int option)
 	{
+		//Scanner scanner = new Scanner(System.in);
 		switch (option) {
 		case 1:
 			records.printRecords();
@@ -59,6 +60,7 @@ public class BookKeeping {
 			System.out.println("Invalid format! Please re-enter the option that you want to choose. ");
 			break;
 		}
+		
 	}
 	
 	
@@ -66,7 +68,7 @@ public class BookKeeping {
 	public void displayMenu() 
 	{
 		int option;
-		
+		//Scanner scanner = new Scanner(System.in);
 		while(true)
 		{
 			System.out.println("Please select an option: (just enter the number you chose)");
@@ -78,6 +80,8 @@ public class BookKeeping {
 			option = scanner.nextInt();
 			chooseMenuOption(option);
 		}
+		//scanner.close();
+		//System.exit(0);
 	}
 
 	
@@ -145,6 +149,7 @@ public class BookKeeping {
 	
 	public Category promptForCategory()
 	{
+		//Scanner scanner = new Scanner(System.in);
 		System.out.println("Choose a category for the new record: (Please enter a number)");
 		System.out.println("1. Groceries");
 		System.out.println("2. Transportation");
