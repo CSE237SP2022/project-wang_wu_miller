@@ -77,7 +77,7 @@ public class BookKeeping {
 			System.out.println("3. add a new record");
 			System.out.println("4. edit existing record");
 			System.out.println("5. quit");
-			option = scanner.nextInt();
+			option = Integer.parseInt(scanner.nextLine());
 			chooseMenuOption(option);
 		}
 		//scanner.close();
@@ -154,7 +154,7 @@ public class BookKeeping {
 		System.out.println("1. Groceries");
 		System.out.println("2. Transportation");
 		System.out.println("3. Dining");
-		int category = scanner.nextInt();
+		int category = Integer.parseInt(scanner.nextLine());
 		
 		switch (category) {
 		case 1:
@@ -177,14 +177,14 @@ public class BookKeeping {
 		
 		
 		System.out.println("Please provide a note for the new record:");
-		String record_note = scanner.next(); 
+		String record_note = scanner.nextLine(); 
 		
-		scanner.nextLine();
+		//scanner.nextLine();
 		
 		System.out.println("Please provide the amount of the purchase:");
-		double amount = scanner.nextDouble();
+		double amount = Double.parseDouble(scanner.nextLine());
 		
-		scanner.nextLine();
+		//scanner.nextLine();
 
 		Category category = promptForCategory();
 
