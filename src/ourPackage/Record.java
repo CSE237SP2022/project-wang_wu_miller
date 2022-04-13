@@ -2,6 +2,11 @@ package ourPackage;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Record class indicates each entry of the user spent
+ * @author Joanna
+ *
+ */
 public class Record {
 	private String note;
 	private Date date;
@@ -9,6 +14,14 @@ public class Record {
 	private Category category;
 	private String ID;
 	
+	
+	/**
+	 * constructor, generate an id for each record
+	 * @param note
+	 * @param date
+	 * @param amount
+	 * @param category
+	 */
 	public Record(String note, Date date, double amount, Category category){
 		this.note = note;
 		this.date = date;

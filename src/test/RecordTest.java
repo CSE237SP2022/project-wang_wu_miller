@@ -53,4 +53,18 @@ class RecordTest {
 		
 	}
 
+	@Test
+	void testEditRecord() {
+		Date newDate = new Date();
+		record.editRecord("Dinner", newDate, 15.5, Category.DINING);
+		
+		String newNote = record.getNote();
+		double newAmount = record.getAmount();
+		Category newCategory = record.getCategory();
+		
+		assertTrue("Dinner".equals(newNote));
+		assertEquals(15.5, newAmount, 0.05);
+		assertEquals(Category.DINING, newCategory);
+		
+	}
 }
