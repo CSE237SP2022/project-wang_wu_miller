@@ -3,7 +3,7 @@ import java.util.*;
 public class Records {
 	List<Record> records;
 	
-	Records(){
+	public Records(){
 		records = new ArrayList<Record>();
 	}
 	
