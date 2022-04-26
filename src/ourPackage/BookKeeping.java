@@ -217,10 +217,9 @@ public class BookKeeping {
 	}
 
 	
-	public void listMatchingRecords()
+	public boolean listMatchingRecords()
 	{
-		boolean foundRecord = false; 
-		while(!foundRecord) {
+		while(true) {
 			System.out.println("Please provide a name for the record to edit:");
 			String record_name = scanner.nextLine();
 			
@@ -231,8 +230,18 @@ public class BookKeeping {
 				if (record.getNote().equals(record_name)) {
 					System.out.println("Entry #" + i + ": ");
 					record.printRecord();
-					foundRecord = true;
+					return true;
 				}
+			}
+			
+			System.out.println("There were no results for " + record_name + ". Press 1 to see the record entries or 2 to go back to the menu.");
+			System.out.println("Press any other button to continue.");
+			int exitOption = Integer.parseInt(scanner.nextLine());
+			if (exitOption == 1) {
+				records.printRecords();
+			}
+			if (exitOption == 2) {
+				return false;
 			}
 		}
 	}
@@ -285,7 +294,9 @@ public class BookKeeping {
 	public void editRecord() {
 		
 		//check if record name given matches with a corresponding record that exists, if so will list out the records that match up 
-		listMatchingRecords();
+		if(listMatchingRecords() == false) {
+			return;
+		}
 		
 		
 		System.out.println("Please enter the ID of the entry you want to edit:");
