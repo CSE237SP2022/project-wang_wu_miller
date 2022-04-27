@@ -47,6 +47,11 @@ public class BookKeeping {
 		return totalAmount;
 	}
 	
+	public Records getRecords()
+	{
+		return records;
+	}
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		BookKeeping bookKeeping = new BookKeeping();
 		
@@ -146,37 +151,37 @@ public class BookKeeping {
 		}
 	}
 	
-	public void showCategoryTotals()
+	public double formatCurrency(double amount)
 	{
 		//ternary operations prevent arithmetic exception from dividing by zero
-		double formattedTotalAmount = (totalAmount == 0) ? 0 : (double) Math.round((totalAmount*100)/100);
-		double formattedTotalGroceries = (totalGroceries == 0) ? 0 : (double) Math.round((totalGroceries*100)/100);
-		double formattedTotalTransportation = (totalTransportation == 0) ? 0 : (double) Math.round((totalTransportation*100)/100);
-		double formattedTotalDining = (totalDining == 0) ? 0 : (double) Math.round((totalDining*100)/100);
-		double formattedTotalOther = (totalOther == 0) ? 0 : (double) Math.round((totalOther*100)/100);
-
-		
-		System.out.println("Total amount: " + formattedTotalAmount);
-		System.out.println("Total groceries: " + formattedTotalGroceries);
-		System.out.println("Total transportation: " + formattedTotalTransportation);
-		System.out.println("Total dining: " + formattedTotalDining);
-		System.out.println("Total other: " + formattedTotalOther);
+		return (amount == 0) ? 0 : Math.round(amount*100.0)/100.0;
+	}
+	public void showCategoryTotals()
+	{
+		System.out.println("Total amount: " + formatCurrency(totalAmount));
+		System.out.println("Total groceries: " + formatCurrency(totalGroceries));
+		System.out.println("Total transportation: " + formatCurrency(totalTransportation));
+		System.out.println("Total dining: " + formatCurrency(totalDining));
+		System.out.println("Total other: " + formatCurrency(totalOther));
 		System.out.println();
+	}
+	
+	
+	public double getTotalPercentage(double amount)
+	{
+		//ternary operations prevent arithmetic exception from dividing by zero
+		double percent = (totalAmount == 0) ? 0 : (amount / totalAmount) * 100;
+		//round to two decimal places
+		return Math.round(percent * 100) / 100;
 	}
 	
 	
 	public void showCategoryPercentages()
 	{
-		//ternary operations prevent arithmetic exception from dividing by zero
-		double percentGroceries = (totalAmount == 0) ? 0 : (totalGroceries / totalAmount)*100; 
-		double percentTransportation = (totalAmount == 0) ? 0 : (totalTransportation / totalAmount)*100; 
-		double percentDining = (totalAmount == 0) ? 0 : (totalDining / totalAmount)*100; 
-		double percentOther = (totalOther == 0) ? 0 : (totalOther / totalAmount)*100; 
-		
-		System.out.println("Percent spent on groceries: " + (double) Math.round(percentGroceries*100)/100);
-		System.out.println("Percent spent on transportation: " + (double) Math.round(percentTransportation*100)/100);
-		System.out.println("Percent spent on dining: " + (double) Math.round(percentDining*100)/100);
-		System.out.println("Percent spent on other: " + (double) Math.round(percentOther*100)/100);
+		System.out.println("Percent spent on groceries: " + getTotalPercentage(totalGroceries));
+		System.out.println("Percent spent on transportation: " + getTotalPercentage(totalTransportation));
+		System.out.println("Percent spent on dining: " + getTotalPercentage(totalDining));
+		System.out.println("Percent spent on other: " + getTotalPercentage(totalOther));
 
 		System.out.println();
 	}
@@ -217,7 +222,7 @@ public class BookKeeping {
 	}
 	
 	
-	public void addRecord() 
+	public Record addRecord() 
 	{
 		System.out.println("Please provide a note for the new record:");
 		String record_note = scanner.nextLine(); 
@@ -234,35 +239,48 @@ public class BookKeeping {
 		records.addRecord(record);
 
 		addToTotals(record);
+		
+		return record;
 	}
 
+	public boolean listMatchingRecords(String record_name)
+	{
+		for(int i=0; i<records.size(); i++) {
+			
+			Record record = records.get(i);
+			
+			if (record.getNote().equals(record_name)) {
+				System.out.println("Entry #" + i + ": ");
+				record.printRecord();
+				return true;
+			}
+		}
+		return false;
+	}
 	
-	public boolean listMatchingRecords()
+	public boolean promptEdit()
 	{
 		while(true) {
 			System.out.println("Please provide a name for the record to edit:");
 			String record_name = scanner.nextLine();
 			
-			for(int i=0; i<records.size(); i++) {
-				
-				Record record = records.get(i);
-				
-				if (record.getNote().equals(record_name)) {
-					System.out.println("Entry #" + i + ": ");
-					record.printRecord();
-					return true;
+			if(!listMatchingRecords(record_name))
+			{
+				System.out.println("There were no results for " + record_name + ". Press 1 to see the record entries or 2 to go back to the menu.");
+				System.out.println("Press any other number to continue.");
+				int exitOption = Integer.parseInt(scanner.nextLine());
+				if (exitOption == 1) {
+					records.printRecords();
+				}
+				if (exitOption == 2) {
+					return false;
 				}
 			}
+			else
+			{
+				return true;
+			}
 			
-			System.out.println("There were no results for " + record_name + ". Press 1 to see the record entries or 2 to go back to the menu.");
-			System.out.println("Press any other button to continue.");
-			int exitOption = Integer.parseInt(scanner.nextLine());
-			if (exitOption == 1) {
-				records.printRecords();
-			}
-			if (exitOption == 2) {
-				return false;
-			}
 		}
 	}
 
@@ -314,7 +332,7 @@ public class BookKeeping {
 	public void editRecord() {
 		
 		//check if record name given matches with a corresponding record that exists, if so will list out the records that match up 
-		if(listMatchingRecords() == false) {
+		if(promptEdit() == false) {
 			return;
 		}
 		
