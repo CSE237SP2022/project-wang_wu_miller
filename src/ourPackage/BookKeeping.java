@@ -27,6 +27,26 @@ public class BookKeeping {
 		totalAmount = 0;
 	}
 	
+	public double getTotalGroceries() {
+		return totalGroceries;
+	}
+	
+	public double getTotalTransportation() {
+		return totalTransportation;
+	}
+	
+	public double getTotalDining() {
+		return totalDining;
+	}
+	
+	public double getTotalOther() {
+		return totalOther;
+	}
+	
+	public double getTotalAmount() {
+		return totalAmount;
+	}
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		BookKeeping bookKeeping = new BookKeeping();
 		
