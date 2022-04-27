@@ -71,7 +71,7 @@ class BoookKeepingTest {
 		assertEquals(83, groceriesPercentage, 0.05);
 	}
 	@Test
-	void addRecordTest()
+	void testAddRecord()
 	{
 		Record added = bookKeeping.addRecord();
 		Records records = bookKeeping.getRecords();
