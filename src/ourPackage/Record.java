@@ -12,6 +12,7 @@ public class Record {
 	private Date date;
 	private double amount;
 	private Category category;
+	private User user; 
 	private String ID;
 	
 	
@@ -22,11 +23,12 @@ public class Record {
 	 * @param amount
 	 * @param category
 	 */
-	public Record(String note, Date date, double amount, Category category){
+	public Record(String note, Date date, double amount, Category category, User user){
 		this.note = note;
 		this.date = date;
 		this.amount = amount;
 		this.category = category; 
+		this.user = user; 
 		this.ID = UUID.randomUUID().toString();
 	}
 	
@@ -58,12 +60,17 @@ public class Record {
 		 return ID;
 	 }
 	 
+	 public User getUser() {
+		 return user;
+	 }
+	 
 	 public void printRecord()
 	 {
 		 System.out.println("Note: " + note);
 		 System.out.println("Date: " + date);
 		 System.out.println("Amount: " + amount);
 		 System.out.println("Category: " + category);
+		 System.out.println("User: " + user.getUsername());
 		 System.out.println("ID: " + ID);
 	 }
 }

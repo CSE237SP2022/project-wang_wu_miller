@@ -8,19 +8,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ourPackage.Record;
-
+import ourPackage.User;
 import ourPackage.Category;
 
 class RecordTest {
 
 	private Record record;
+	private User user; 
 	private Date date;
 
 	
 	@BeforeEach
 	void setup() {
 		date = new Date();
-		record = new Record("Schnucks Run", date, 12.50, Category.GROCERIES); //setup
+		user = new User("colin");
+		record = new Record("Schnucks Run", date, 12.50, Category.GROCERIES, user); //setup
 	}
 	
 	
