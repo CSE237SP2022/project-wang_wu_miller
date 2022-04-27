@@ -31,7 +31,8 @@ class BoookKeepingTest {
 		
 	}
 	@Test
-	void testAddToTotals() {	
+	void testAddToTotals() 
+	{	
 		bookKeeping.addToTotals(recordOne);
 		bookKeeping.addToTotals(recordTwo);
 		
@@ -42,12 +43,8 @@ class BoookKeepingTest {
 	}
 	
 	@Test
-	void testSubtractFromTotals() {
-		BookKeeping bookKeeping = new BookKeeping();
-		Date date = new Date();
-		Record recordOne = new Record("Schnucks Run", date, 12.50, Category.GROCERIES);
-		Record recordTwo = new Record("Bagel", date, 2.5, Category.DINING);
-		
+	void testSubtractFromTotals() 
+	{
 		bookKeeping.addToTotals(recordOne);
 		bookKeeping.addToTotals(recordTwo);
 		bookKeeping.subtractFromTotals(recordTwo);
@@ -55,7 +52,6 @@ class BoookKeepingTest {
 		assertEquals(12.5, bookKeeping.getTotalGroceries(), 0.05);
 		assertEquals(0, bookKeeping.getTotalDining(), 0.05);
 		assertEquals(12.5, bookKeeping.getTotalAmount(), 0.05);
-		
 	}
 	
 	@Test
