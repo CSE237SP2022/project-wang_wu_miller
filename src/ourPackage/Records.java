@@ -38,6 +38,7 @@ public class Records {
 			System.out.println("Date: " + record.getDate());
 			System.out.println("Amount: " + record.getAmount());
 			System.out.println("Category: " + record.getCategory());
+			System.out.println("User: " + record.getUser().getUsername());
 			System.out.println();
 		}
 		System.out.println();
