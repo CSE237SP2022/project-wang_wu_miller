@@ -11,6 +11,7 @@ import ourPackage.BookKeeping;
 import ourPackage.Category;
 import ourPackage.Record;
 import ourPackage.Records;
+import ourPackage.User;
 
 class BoookKeepingTest {
 
@@ -18,6 +19,8 @@ class BoookKeepingTest {
 	private Date date;
 	private Record recordOne;
 	private Record recordTwo;
+	private User userOne; 
+	private User userTwo;
 	
 
 	
@@ -26,8 +29,10 @@ class BoookKeepingTest {
 	{
 		bookKeeping = new BookKeeping();
 		date = new Date();
-		recordOne = new Record("Schnucks Run", date, 12.50, Category.GROCERIES);
-		recordTwo = new Record("Bagel", date, 2.5, Category.DINING);
+		userOne = new User("User1");
+		userTwo = new User ("User2");
+		recordOne = new Record("Schnucks Run", date, 12.50, Category.GROCERIES, userOne);
+		recordTwo = new Record("Bagel", date, 2.5, Category.DINING, userTwo);
 		
 	}
 	@Test

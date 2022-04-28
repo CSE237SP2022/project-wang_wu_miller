@@ -9,6 +9,8 @@ public class BookKeeping {
 	
 	private Scanner scanner;
 	private Records records;
+	private Users users; 
+	private User currentUser; 
 	private double totalGroceries;
 	private double totalTransportation;
 	private double totalDining;
@@ -20,6 +22,7 @@ public class BookKeeping {
 	{
 		this.scanner = new Scanner(System.in);
 		this.records = new Records();
+		this.users = new Users();
 		totalGroceries = 0;
 		totalTransportation = 0;
 		totalDining = 0;
@@ -78,6 +81,9 @@ public class BookKeeping {
 			editRecord();
 			break;
 		case 5:
+			changeUser();
+			break;
+		case 6:
 			quit();
 			System.out.println("quiting the program");
 			break;
@@ -96,18 +102,66 @@ public class BookKeeping {
 	
 		while(true)
 		{
+			if(currentUser == null) {
+				System.out.println("Choose a username for your account:");
+				String username = scanner.nextLine(); 
+				User user = new User(username);
+				users.addUser(user);
+				user.printUser();
+				currentUser = user; 
+			}
+			
+			
+			System.out.println("Current user is " + currentUser.getUsername());
 			System.out.println("Please select an option: (just enter the number you chose)");
 			System.out.println("1. show all your spent");
 			System.out.println("2. show your spending summary");
 			System.out.println("3. add a new record");
 			System.out.println("4. edit existing record");
-			System.out.println("5. quit");
+			System.out.println("5. change user");
+			System.out.println("6. quit");
 			option = Integer.parseInt(scanner.nextLine());
 			chooseMenuOption(option);
 		}
 	}
 
-	
+	//can create a new user or log into an existing one
+	public void changeUser() {
+		System.out.println("Do you wish to change users? Press 1 to continue or 2 to quit:");
+		int userOption = Integer.parseInt(scanner.nextLine());
+		if (userOption == 1) {
+			
+			System.out.println("Press 1 to enter a new user or press 2 to see current users:");
+			int newUser = Integer.parseInt(scanner.nextLine());
+			if (newUser == 1) {
+				System.out.println("Choose a username for your account:");
+				String username = scanner.nextLine(); 
+				User user = new User(username);
+				users.addUser(user);
+				user.printUser();
+				currentUser = user;
+			}
+			else if (newUser == 2) {
+				boolean newLogin = false; 
+				while(!newLogin) {
+					users.printUsers();
+					System.out.println("Choose a username from the list to use:");
+					String username = scanner.nextLine();
+					for (int i=0; i < users.size();i++) {
+						User user = users.get(i);
+						if (user.getUsername().equals(username)) {
+							System.out.println("Logged in as " + username);
+							currentUser = user; 
+							newLogin = true;
+						}
+					}
+				}
+				
+			}
+			
+		}
+			
+	}
 	
 	public void addToTotals(Record record)
 	{
@@ -234,8 +288,8 @@ public class BookKeeping {
 
 		Date date = new Date();// gets the instant record was created
 
-		Record record = new Record(record_note, date, amount, category);
-
+		User creator = currentUser;
+		Record record = new Record(record_note, date, amount, category, creator);
 		records.addRecord(record);
 
 		addToTotals(record);
@@ -315,7 +369,7 @@ public class BookKeeping {
 			
 			}
 		}
-		Record new_record = new Record(new_note, current_record.getDate(), new_amount, new_category);
+		Record new_record = new Record(new_note, current_record.getDate(), new_amount, new_category, current_record.getUser());
 		return new_record;
 	}
 	

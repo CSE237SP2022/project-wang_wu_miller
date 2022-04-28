@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import ourPackage.Category;
 import ourPackage.Records;
+import ourPackage.User;
 import ourPackage.Record;
 
 class RecordsTest {
@@ -17,14 +18,20 @@ class RecordsTest {
 	private Record recordOne;
 	private Record recordTwo;
 	private Record recordThree;
+	private User userOne; 
+	private User userTwo;
+	private User userThree; 
 	private Records records;
 	
 	@BeforeEach
 	void setup() {
 		Date date = new Date();
-		recordOne = new Record("Schnucks Run", date, 12.50, Category.GROCERIES);
-		recordTwo = new Record("Bagel", date, 2.5, Category.DINING);
-		recordThree = new Record("Schnucks Run", date, 12.50, Category.GROCERIES); 
+		userOne = new User("Joanna");
+		userTwo = new User("Sally");
+		userThree = new User("Siyou");
+		recordOne = new Record("Schnucks Run", date, 12.50, Category.GROCERIES, userOne);
+		recordTwo = new Record("Bagel", date, 2.5, Category.DINING, userTwo);
+		recordThree = new Record("Schnucks Run", date, 12.50, Category.GROCERIES, userThree); 
 		records = new Records();
 		records.addRecord(recordOne);
 		records.addRecord(recordTwo);
